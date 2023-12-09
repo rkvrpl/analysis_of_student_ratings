@@ -10,24 +10,43 @@ const button = document.getElementById('button');
 
 
 
-let array = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,];
-let grades = array.map((x) => x + (Math.floor(Math.random() * 100) + 1))
-console.log(grades);
+let array = new Array(12).fill(1);
+const grades = array.map((x) => x + (Math.floor(Math.random() * 100)));
 
 button.addEventListener('click', function(){
+    const initialValue = 0;
+    const sum = grades.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
+    const averageScore = (sum / grades.length).toFixed(1);
+    averageScoreResult.textContent = averageScore;
 
+    const maxScore = Math.max(...grades); 
+    maxScoreResult.textContent = maxScore;
+
+    const minScore = Math.min(...grades); 
+    minScoreResult.textContent = minScore;
+
+    const highestScore = grades.filter(function(value){
+        return value >= 60;
+    });
+    highestScoreResult.textContent = highestScore.length;
+
+    const negativeScore = grades.filter(function(value){
+        return value < 60;
+    });
+    negativeScoreResult.textContent = negativeScore.length;
+    
+    let copyArray = [...grades];
+    const gradesLetter = copyArray.map(function (item) {
+        if (item >= 80 && item <=100)
+            return item = "A";
+        else if (item >= 60 && item <=79)
+            return item = "B";
+        else if (item >= 40 && item <=59)
+            return item = "C";
+        else if (item >= 20 && item <=39)
+            return item = "D";
+        else (item < 20)
+            return item = "E";
+        });
+        assessmentsResult.textContent = gradesLetter.join(', ');
 });
-// 1. Создайте пустой массив с именем `grades` и заполните массив случайными оценками от 1 до 100 для 12 студентов. Для генерации случайных оценок, используйте функцию `Math.random()`.
-// 2. Рассчитайте и выведите средний балл студентов, используя методы массивов.
-// 3. Найдите и выведите максимальный балл среди студентов, используя соответствующий метод массива.
-// 4. Найдите и выведите минимальный балл среди студентов, используя соответствующий метод массива.
-// 5. Посчитайте и выведите количество студентов, получивших положительную оценку (балл выше или равен 60). Используйте метод массива, который фильтрует оценки и оставляет только те, которые соответствуют заданному условию. Затем посчитайте количество оставшихся оценок и выведите результат.
-// 6. Посчитайте и выведите количество студентов, получивших отрицательную оценку (балл ниже 60). Используйте аналогичный подход, как в предыдущем шаге.
-// 7. Преобразуйте числовые оценки в формат буквенных оценок A/B/C/D/E, используя следующие правила:
-//     - Если оценка находится в диапазоне от 80 до 100, преобразуйте её в "A"
-//     - Если оценка находится в диапазоне от 60 до 79, преобразуйте её в "B"
-//     - Если оценка находится в диапазоне от 40 до 59, преобразуйте её в "C"
-//     - Если оценка находится в диапазоне от 20 до 39, преобразуйте её в "D"
-//     - Если оценка ниже 20, преобразуйте её в "E"
-
-// Выведите все найденные значения на экран.
